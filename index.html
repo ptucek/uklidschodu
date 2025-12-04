@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Úklid schodů</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪣</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🪣 Úklid schodů <span id="yearDisplay"></span></h1>
+            <div class="controls">
+                <button id="prevYear" class="btn btn-nav" title="Předchozí rok">◀</button>
+                <input type="number" id="yearInput" min="2020" max="2100">
+                <button id="nextYear" class="btn btn-nav" title="Následující rok">▶</button>
+            </div>
+        </header>
+
+        <div class="info-bar">
+            <p>💡 Klikni na jméno pro úpravu • Změny se automaticky ukládají</p>
+        </div>
+
+        <div class="neighbors-section">
+            <h3>Sousedé (pořadí úklidu)</h3>
+            <div id="neighborsList" class="neighbors-list"></div>
+            <button id="addNeighbor" class="btn btn-add">+ Přidat souseda</button>
+        </div>
+
+        <div class="current-week-highlight" id="currentWeekInfo"></div>
+
+        <div class="table-container">
+            <table id="scheduleTable">
+                <tbody id="scheduleBody"></tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>Vytvořeno pro dům na adrese <span class="editable-address" id="addressField" contenteditable="true">Vaše adresa</span></p>
+        </footer>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3>Upravit jméno</h3>
+            <input type="text" id="editNameInput" placeholder="Zadejte jméno">
+            <div class="modal-buttons">
+                <button id="saveEdit" class="btn btn-save">Uložit</button>
+                <button id="cancelEdit" class="btn btn-cancel">Zrušit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
