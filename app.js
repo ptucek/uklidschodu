@@ -110,6 +110,20 @@ function getWeeksOfYear(year) {
     let date = new Date(firstThursday);
     date.setDate(date.getDate() - 3);
 
+    // Pokud první týden začíná 1.1. nebo později, přidej týden z předchozího roku
+    if (date.getFullYear() === year && date.getMonth() === 0 && date.getDate() >= 1) {
+        const prevWeekStart = new Date(date);
+        prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+        const prevWeekEnd = new Date(prevWeekStart);
+        prevWeekEnd.setDate(prevWeekEnd.getDate() + 6);
+        weeks.push({
+            weekNumber: 0,
+            start: prevWeekStart,
+            end: prevWeekEnd,
+            month: 0 // Leden (zobrazí se v lednu)
+        });
+    }
+
     let weekNumber = 1;
 
     // Generuj týdny dokud čtvrtek týdne patří do tohoto roku
@@ -135,7 +149,24 @@ function getWeeksOfYear(year) {
         weekNumber++;
 
         // Bezpečnostní limit
-        if (weeks.length > 53) break;
+        if (weeks.length > 54) break;
+    }
+
+    // Pokud poslední týden končí 31.12. nebo dříve, přidej týden do následujícího roku
+    if (weeks.length > 0) {
+        const lastWeek = weeks[weeks.length - 1];
+        if (lastWeek.end.getFullYear() === year) {
+            const nextWeekStart = new Date(lastWeek.start);
+            nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+            const nextWeekEnd = new Date(nextWeekStart);
+            nextWeekEnd.setDate(nextWeekEnd.getDate() + 6);
+            weeks.push({
+                weekNumber: lastWeek.weekNumber + 1,
+                start: nextWeekStart,
+                end: nextWeekEnd,
+                month: 11 // Prosinec (zobrazí se v prosinci)
+            });
+        }
     }
 
     return weeks;
