@@ -292,7 +292,7 @@ function renderSchedule() {
 
             td.innerHTML = `
                 <div class="name" data-week-key="${weekKey}">${escapeHtml(name)}</div>
-                <div class="dates">${formatDate(week.start)} - ${formatDate(week.end)}</div>
+                <div class="dates">${formatDateRange(week.start, week.end)}</div>
                 <div class="week-number">Týden ${week.weekNumber}</div>
             `;
 
@@ -315,7 +315,7 @@ function renderCurrentWeekInfo() {
 
     if (currentWeek) {
         const name = getAssignedName(appData.year, currentWeek.weekNumber);
-        infoEl.innerHTML = `🧹 Tento týden uklízí: <strong>${escapeHtml(name)}</strong> (${formatDate(currentWeek.start)} - ${formatDate(currentWeek.end)})`;
+        infoEl.innerHTML = `🧹 Tento týden uklízí: <strong>${escapeHtml(name)}</strong> (${formatDateRange(currentWeek.start, currentWeek.end)})`;
         infoEl.classList.add('visible');
     } else {
         infoEl.classList.remove('visible');
@@ -382,6 +382,21 @@ function closeModal() {
 // ================================
 // Pomocné funkce
 // ================================
+
+function formatDateRange(start, end) {
+    const s = new Date(start);
+    const e = new Date(end);
+    const sDay = s.getDate();
+    const sMonth = s.getMonth() + 1;
+    const eDay = e.getDate();
+    const eMonth = e.getMonth() + 1;
+
+    // Pokud přetéká do dalšího roku, zobraz rok u obou dat
+    if (s.getFullYear() !== e.getFullYear()) {
+        return `${sDay}.${sMonth}.${s.getFullYear()} - ${eDay}.${eMonth}.${e.getFullYear()}`;
+    }
+    return `${sDay}.${sMonth}. - ${eDay}.${eMonth}.`;
+}
 
 function formatDate(date) {
     const d = new Date(date);
