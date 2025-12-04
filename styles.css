@@ -346,7 +346,7 @@ footer {
     background: #5a6268;
 }
 
-/* Print styles - simple layout without decorative graphics */
+/* Print styles - simple layout matching original format */
 @media print {
     body {
         background: white !important;
@@ -365,7 +365,6 @@ footer {
 
     header h1 {
         text-align: center;
-        font-size: 1.5rem;
         color: black;
         margin-bottom: 10px;
     }
@@ -386,7 +385,6 @@ footer {
     table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 10pt;
     }
 
     td {
@@ -399,6 +397,7 @@ footer {
         background: white !important;
         color: black !important;
         font-weight: bold;
+        font-style: normal;
         font-size: larger;
         border: 2px solid black !important;
         -webkit-print-color-adjust: exact;
@@ -427,19 +426,22 @@ footer {
     }
 
     .week-cell .dates {
-        font-size: 9pt;
         color: black;
         border-bottom: 2px solid black;
         padding-bottom: 2px;
     }
 
     .week-cell .week-number {
-        display: none;
+        display: none !important;
     }
 
     .week-cell.current-week {
         background: transparent !important;
         border: 1px solid black;
+    }
+
+    .emoji-icon {
+        display: none !important;
     }
 }
 

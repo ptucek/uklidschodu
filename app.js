@@ -141,6 +141,31 @@ function getWeeksOfYear(year) {
         if (weeks.length > 53) break;
     }
 
+    // Přidej týden přetékající do dalšího roku (pokud existuje)
+    // Najdi poslední týden roku a zkontroluj, zda přetéká
+    if (weeks.length > 0) {
+        const lastWeek = weeks[weeks.length - 1];
+        if (lastWeek.end.getFullYear() > year) {
+            // Poslední týden již přetéká, je zahrnut
+        } else {
+            // Zkontroluj, zda existuje týden začínající v tomto roce a končící v dalším
+            const nextMonday = new Date(lastWeek.start);
+            nextMonday.setDate(nextMonday.getDate() + 7);
+            const nextSunday = new Date(nextMonday);
+            nextSunday.setDate(nextSunday.getDate() + 6);
+
+            if (nextMonday.getFullYear() === year && nextSunday.getFullYear() > year) {
+                weeks.push({
+                    weekNumber: weeks.length + 1,
+                    start: nextMonday,
+                    end: nextSunday,
+                    month: 11, // Prosinec
+                    isOverflow: true
+                });
+            }
+        }
+    }
+
     return weeks;
 }
 
@@ -360,7 +385,10 @@ function closeModal() {
 
 function formatDate(date) {
     const d = new Date(date);
-    return `${d.getDate()}.${d.getMonth() + 1}.`;
+    const day = d.getDate().toString().padStart(2, ' ');
+    const month = (d.getMonth() + 1).toString().padStart(2, ' ');
+    const year = d.getFullYear();
+    return `${day}.\u2009${month}.\u2009${year}`;
 }
 
 function escapeHtml(text) {
