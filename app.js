@@ -100,70 +100,42 @@ function initEventListeners() {
 function getWeeksOfYear(year) {
     const weeks = [];
 
-    // Najdi první pondělí roku (nebo poslední pondělí předchozího roku)
-    let date = new Date(year, 0, 1);
-
-    // Pokud 1.1. není pondělí, najdi první pondělí
-    while (date.getDay() !== 1) {
-        date.setDate(date.getDate() + 1);
+    // Najdi první čtvrtek roku - ten určuje ISO týden 1
+    let firstThursday = new Date(year, 0, 1);
+    while (firstThursday.getDay() !== 4) {
+        firstThursday.setDate(firstThursday.getDate() + 1);
     }
 
-    // Pokud první pondělí je až po 4.1., vrať se o týden zpět
-    if (date.getDate() > 4) {
-        date.setDate(date.getDate() - 7);
-    }
+    // Pondělí týdne 1 je 3 dny před prvním čtvrtkem
+    let date = new Date(firstThursday);
+    date.setDate(date.getDate() - 3);
 
-    const endOfYear = new Date(year, 11, 31);
     let weekNumber = 1;
 
-    while (date <= endOfYear || weekNumber <= 52) {
+    // Generuj týdny dokud čtvrtek týdne patří do tohoto roku
+    while (true) {
         const weekStart = new Date(date);
         const weekEnd = new Date(date);
         weekEnd.setDate(weekEnd.getDate() + 6);
 
-        // Kontrola, zda týden patří do tohoto roku
         const thursdayOfWeek = new Date(date);
         thursdayOfWeek.setDate(thursdayOfWeek.getDate() + 3);
 
-        if (thursdayOfWeek.getFullYear() === year) {
-            weeks.push({
-                weekNumber: weekNumber,
-                start: weekStart,
-                end: weekEnd,
-                month: getMainMonth(weekStart, weekEnd)
-            });
-        }
+        // Pokud čtvrtek už je v dalším roce, končíme
+        if (thursdayOfWeek.getFullYear() > year) break;
+
+        weeks.push({
+            weekNumber: weekNumber,
+            start: weekStart,
+            end: weekEnd,
+            month: getMainMonth(weekStart, weekEnd)
+        });
 
         date.setDate(date.getDate() + 7);
         weekNumber++;
 
         // Bezpečnostní limit
         if (weeks.length > 53) break;
-    }
-
-    // Přidej týden přetékající do dalšího roku (pokud existuje)
-    // Najdi poslední týden roku a zkontroluj, zda přetéká
-    if (weeks.length > 0) {
-        const lastWeek = weeks[weeks.length - 1];
-        if (lastWeek.end.getFullYear() > year) {
-            // Poslední týden již přetéká, je zahrnut
-        } else {
-            // Zkontroluj, zda existuje týden začínající v tomto roce a končící v dalším
-            const nextMonday = new Date(lastWeek.start);
-            nextMonday.setDate(nextMonday.getDate() + 7);
-            const nextSunday = new Date(nextMonday);
-            nextSunday.setDate(nextSunday.getDate() + 6);
-
-            if (nextMonday.getFullYear() === year && nextSunday.getFullYear() > year) {
-                weeks.push({
-                    weekNumber: weeks.length + 1,
-                    start: nextMonday,
-                    end: nextSunday,
-                    month: 11, // Prosinec
-                    isOverflow: true
-                });
-            }
-        }
     }
 
     return weeks;
