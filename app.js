@@ -358,16 +358,14 @@ function closeModal() {
 function formatDateRange(start, end) {
     const s = new Date(start);
     const e = new Date(end);
+    const sp = '\u2009'; // thin space
     const sDay = s.getDate();
     const sMonth = s.getMonth() + 1;
     const eDay = e.getDate();
     const eMonth = e.getMonth() + 1;
 
-    // Pokud přetéká do dalšího roku, zobraz rok u obou dat
-    if (s.getFullYear() !== e.getFullYear()) {
-        return `${sDay}.${sMonth}.${s.getFullYear()} - ${eDay}.${eMonth}.${e.getFullYear()}`;
-    }
-    return `${sDay}.${sMonth}. - ${eDay}.${eMonth}.`;
+    // Vždy zobraz rok (jako v originále)
+    return `${sDay}.${sp}${sMonth}.${sp}${s.getFullYear()} ${eDay}.${sp}${eMonth}.${sp}${e.getFullYear()}`;
 }
 
 function formatDate(date) {
