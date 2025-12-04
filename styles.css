@@ -428,7 +428,7 @@ footer {
 
     .week-cell .name {
         font-weight: bold;
-        font-size: 12pt;
+        font-size: 14pt;
         background: transparent !important;
         padding: 0;
         display: block;
@@ -438,7 +438,8 @@ footer {
 
     .week-cell .dates {
         color: black;
-        font-size: 10pt;
+        font-size: 11pt;
+        white-space: nowrap;
     }
 
     .week-cell .week-number {
