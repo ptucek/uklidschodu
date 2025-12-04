@@ -348,25 +348,32 @@ footer {
 
 /* Print styles - simple layout matching original format */
 @media print {
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
+
     body {
         background: white !important;
         padding: 0;
+        margin: 0;
         font-family: serif;
-        max-width: 14cm;
-        margin: auto;
+        font-size: 14pt;
     }
 
     .container {
         box-shadow: none;
         padding: 0;
         border-radius: 0;
-        max-width: 14cm;
+        max-width: none;
+        width: 100%;
     }
 
     header h1 {
         text-align: center;
         color: black;
         margin-bottom: 10px;
+        font-size: 20pt;
     }
 
     .controls,
@@ -380,16 +387,18 @@ footer {
 
     .table-container {
         overflow: visible;
+        width: 100%;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
+        table-layout: fixed;
     }
 
     td {
         border: 1px solid black !important;
-        padding: 2px;
+        padding: 4px;
         text-align: center;
     }
 
@@ -398,8 +407,9 @@ footer {
         color: black !important;
         font-weight: bold;
         font-style: normal;
-        font-size: larger;
+        font-size: 14pt;
         border: 2px solid black !important;
+        width: 25px;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
@@ -407,7 +417,7 @@ footer {
     .week-cell {
         min-width: auto;
         cursor: default;
-        padding: 2px;
+        padding: 4px;
     }
 
     .week-cell:hover {
@@ -418,6 +428,7 @@ footer {
 
     .week-cell .name {
         font-weight: bold;
+        font-size: 12pt;
         background: transparent !important;
         padding: 0;
         display: block;
@@ -427,6 +438,7 @@ footer {
 
     .week-cell .dates {
         color: black;
+        font-size: 10pt;
     }
 
     .week-cell .week-number {
