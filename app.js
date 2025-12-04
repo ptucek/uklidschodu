@@ -399,7 +399,7 @@ function formatDateRange(start, end, currentYear) {
     const sYear = s.getFullYear() !== currentYear ? `${sp}${s.getFullYear()}` : '';
     const eYear = e.getFullYear() !== currentYear ? `${sp}${e.getFullYear()}` : '';
 
-    return `${sDay}.${sp}${sMonth}.${sYear} ${eDay}.${sp}${eMonth}.${eYear}`;
+    return `${sDay}.${sp}${sMonth}.${sYear} \u2013 ${eDay}.${sp}${eMonth}.${eYear}`;
 }
 
 function formatDate(date) {
