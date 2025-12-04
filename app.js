@@ -385,10 +385,9 @@ function closeModal() {
 
 function formatDate(date) {
     const d = new Date(date);
-    const day = d.getDate().toString().padStart(2, ' ');
-    const month = (d.getMonth() + 1).toString().padStart(2, ' ');
-    const year = d.getFullYear();
-    return `${day}.\u2009${month}.\u2009${year}`;
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    return `${day}.${month}.`;
 }
 
 function escapeHtml(text) {
