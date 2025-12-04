@@ -307,6 +307,15 @@ function renderSchedule() {
             tr.appendChild(td);
         });
 
+        // Doplnit prázdné buňky do 5 sloupců
+        const maxWeeks = 5;
+        for (let i = monthWeeks.length; i < maxWeeks; i++) {
+            const emptyTd = document.createElement('td');
+            emptyTd.className = 'week-cell empty-cell';
+            emptyTd.innerHTML = '&nbsp;';
+            tr.appendChild(emptyTd);
+        }
+
         tbody.appendChild(tr);
     });
 }
