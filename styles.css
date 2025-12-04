@@ -346,35 +346,100 @@ footer {
     background: #5a6268;
 }
 
-/* Print styles */
+/* Print styles - simple layout without decorative graphics */
 @media print {
     body {
-        background: white;
+        background: white !important;
         padding: 0;
+        font-family: serif;
+        max-width: 14cm;
+        margin: auto;
     }
 
     .container {
         box-shadow: none;
-        padding: 10px;
+        padding: 0;
+        border-radius: 0;
+        max-width: 14cm;
+    }
+
+    header h1 {
+        text-align: center;
+        font-size: 1.5rem;
+        color: black;
+        margin-bottom: 10px;
     }
 
     .controls,
     .info-bar,
     .neighbors-section,
     .btn,
+    .current-week-highlight,
     footer {
-        display: none;
+        display: none !important;
+    }
+
+    .table-container {
+        overflow: visible;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10pt;
+    }
+
+    td {
+        border: 1px solid black !important;
+        padding: 2px;
+        text-align: center;
     }
 
     .month-cell {
-        background: #333 !important;
+        background: white !important;
+        color: black !important;
+        font-weight: bold;
+        font-size: larger;
+        border: 2px solid black !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
 
+    .week-cell {
+        min-width: auto;
+        cursor: default;
+        padding: 2px;
+    }
+
+    .week-cell:hover {
+        background: transparent;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .week-cell .name {
+        font-weight: bold;
+        background: transparent !important;
+        padding: 0;
+        display: block;
+        border-radius: 0;
+        color: black;
+    }
+
+    .week-cell .dates {
+        font-size: 9pt;
+        color: black;
+        border-bottom: 2px solid black;
+        padding-bottom: 2px;
+    }
+
+    .week-cell .week-number {
+        display: none;
+    }
+
     .week-cell.current-week {
-        background: #eee !important;
-        border: 2px solid #333;
+        background: transparent !important;
+        border: 1px solid black;
     }
 }
 
